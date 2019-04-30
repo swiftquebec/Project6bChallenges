@@ -9,7 +9,7 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -50,25 +50,53 @@ class ViewController: UIViewController {
         view.addSubview(label4)
         view.addSubview(label5)
         
-        let viewsDictionary = ["label1": label1, "label2": label2, "label3": label3, "label4": label4, "label5": label5]
+//        let viewsDictionary = ["label1": label1, "label2": label2, "label3": label3, "label4": label4, "label5": label5]
+//
+//
+//        for label in viewsDictionary.keys {
+//            // Allow "view" contraints to be coded via VFL
+//            view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat:
+//                // VFL gets converted to autolayout contraints and then added to the view.
+//                // H: horizontal
+//                // |: edge of viewcontroller
+//                // [\(label)]: place label (string value returns key from viewsDictionary
+//                "H:|[\(label)]|", options: [], metrics: nil, views: viewsDictionary))
+//        }
+//
+//        // Vertical constraints
+//
+//        let metrics = ["labelHeight": 88]
+//
+//        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat:
+//            // V: Vertical
+//            // -: space (10 pts by default)
+//            // absence of pipe at the end means no forcing to the right edge
+//            // Default priority for contraint is @1000
+//            // (labelHeight@999) -> sets its priority to 999
+//            // label2(label1) -> sets label2, etc., to same height as label1
+//            "V:|[label1(labelHeight@999)]-[label2(label1)]-[label3(label1)]-[label4(label1)]-[label5(label1)]-(>=10)-|", options: [], metrics: metrics, views: viewsDictionary))
         
         
-        for label in viewsDictionary.keys {
-            // Allow "view" contraints to be coded via VFL
-            view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat:
-                // VFL gets converted to autolayout contraints and then added to the view.
-                // H: horizontal
-                // |: edge of viewcontroller
-                // [\(label)]: place label (string value returns key from viewsDictionary
-                "H:|[\(label)]|", options: [], metrics: nil, views: viewsDictionary))
+        
+        
+        // DEMONSTRATING ANCHORS (ABOVE CODE COMMENTED OUT)
+        
+        var previous: UILabel?
+        
+        for label in [label1, label2, label3, label4, label5] {
+            label.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+            label.heightAnchor.constraint(equalToConstant: 88).isActive = true
+            
+            if let previous = previous {
+                label.topAnchor.constraint(equalTo: previous.bottomAnchor, constant: 10).isActive = true
+            } else {
+                // If there is no to previous label
+                // In this case, will go below the notch of the Xr
+                label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
+            }
+            
+            previous = label
         }
-        
-        // Vertical constraints
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat:
-            // V: Vertical
-            // -: space (10 pts by default)
-            // absence of pipe at the end means no forcing to the right edge
-            "V:|[label1]-[label2]-[label3]-[label4]-[label5]", options: [], metrics: nil, views: viewsDictionary))
         
     }
 }
