@@ -75,10 +75,7 @@ class ViewController: UIViewController {
 //            // (labelHeight@999) -> sets its priority to 999
 //            // label2(label1) -> sets label2, etc., to same height as label1
 //            "V:|[label1(labelHeight@999)]-[label2(label1)]-[label3(label1)]-[label4(label1)]-[label5(label1)]-(>=10)-|", options: [], metrics: metrics, views: viewsDictionary))
-        
-        
-        
-        
+  
         // DEMONSTRATING ANCHORS (ABOVE CODE COMMENTED OUT)
         
         var previous: UILabel?
@@ -97,7 +94,6 @@ class ViewController: UIViewController {
             
             previous = label
         }
-        
     }
 }
 
